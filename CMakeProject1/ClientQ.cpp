@@ -5,8 +5,11 @@
 #include <iostream>
 #include <WS2tcpip.h>
 #pragma warning(disable: 4996) 
+#include <cstring>
+
 SOCKET Connection;
 
+extern std::string n;
 void ClientH() { //Функция для принятия сообщение клиентом с сервера.
 	char m[256]; //Переданное сообщение.
 	while (true) {
@@ -30,12 +33,16 @@ int main(int argc, char* argv[]) {
 	addr.sin_port = htons(1111); //Порт для идентификации.
 	addr.sin_family = AF_INET;
 
+	
 	Connection = socket(AF_INET, SOCK_STREAM, NULL);
 	if (connect(Connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) { 
 		std::cout << "Error\n";
 		return 1;
 	}
-	std::cout << "Connected\n";
+	else {
+		std::cout << "Connected\n";
+		std::cin >> n; 
+	}
 
 	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientH, NULL, NULL, NULL); //(Многопоточное программирование)
 	//Одновременно в функции main принимаются новые соединения, в процедуре ClientH ожидаются и отправляются сообщения клиентам.
@@ -43,7 +50,8 @@ int main(int argc, char* argv[]) {
 	char m[256];
 	while (true) {
 		std::cin.getline(m, sizeof(m)); 
-		send(Connection, m, sizeof(m), NULL); 
+		std::string text = n + m;
+		send(Connection, text.c_str() , text.size() , NULL);
 	}
 
 	system("pause");
