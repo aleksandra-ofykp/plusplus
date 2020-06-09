@@ -19,13 +19,13 @@ int Count = 0; //Индекс соединения.
 void ClientH(int index) {//Функция для отправки сообщения клиента другим клиентам.
 	char m[256]; //Переданное клиентом сообщение.
 	while (true) {
-		recv(Connections[index], m, sizeof(m), NULL); //Принимает сообщения клиента.
+		recv(Connections[index], m, sizeof(m), 0); //Принимает сообщения клиента.
 		for (int i = 0; i < Count; i++) {
 			if (i == index) {//Для одноразового выведения сообщения клиента.
 				continue;
 			}
 
-			send(Connections[i], m, sizeof(m), NULL); //Отправка остальным клиентам.
+			send(Connections[i], m, sizeof(m), 0); //Отправка остальным клиентам.
 		}
 	}
 }
