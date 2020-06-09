@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
 	addr.sin_port = htons(1111); //Порт для идентификации программы поступающими данными
 	addr.sin_family = AF_INET; // Семейство протоколов.
 
-	SOCKET sListen = socket(AF_INET, SOCK_STREAM, NULL); //Сокет (Ипользуется семейство интернет-протоколов.)
+	SOCKET sListen = socket(AF_INET, SOCK_STREAM, 0); //Сокет (Ипользуется семейство интернет-протоколов.)
 	bind(sListen, (SOCKADDR*)&addr, sizeof(addr)); //Привязка адреса сокету.
 	listen(sListen, SOMAXCONN); //Прослушивание порта для ожидания клиента.
 

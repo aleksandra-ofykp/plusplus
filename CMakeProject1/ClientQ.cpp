@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 	addr.sin_family = AF_INET;
 
 	
-	Connection = socket(AF_INET, SOCK_STREAM, NULL);
+	Connection = socket(AF_INET, SOCK_STREAM, 0);
 	if (connect(Connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) { 
 		std::cout << "Error\n";
 		return 1;

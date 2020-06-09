@@ -9,3 +9,5 @@ enable_testing()
 add_test(ClientHC_test ClientHC_test)
 
 target_link_libraries(ServChat ws2_32)
+target_link_libraries(Chat ws2_32)
+target_link_libraries(ClientHC_test ws2_32)
