@@ -13,7 +13,7 @@ std::string n;
 void ClientH() { //Функция для принятия сообщение клиентом с сервера.
 	char m[256]; //Переданное сообщение.
 	while (true) {
-		recv(Connection, m, sizeof(m), NULL);
+		recv(Connection, m, sizeof(m), 0);
 		std::cout << m << std::endl; //Выводит сообщение.
 	}
 }
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 	while (true) {
 		std::cin.getline(m, sizeof(m)); 
 		std::string text = n + m;
-		send(Connection, text.c_str() , text.size() , NULL);
+		send(Connection, text.c_str() , text.size() , 0);
 	}
 
 	system("pause");
