@@ -7,44 +7,43 @@
 #pragma warning(disable: 4996) 
 SOCKET Connection;
 
-void ClientH() { //Функция для принятия отправленного сервером сообщения.
-	char m[256]; //Хранение переданной строки.
+void ClientH() { //Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїСЂРёРЅСЏС‚РёСЏ СЃРѕРѕР±С‰РµРЅРёРµ РєР»РёРµРЅС‚РѕРј СЃ СЃРµСЂРІРµСЂР°.
+	char m[256]; //РџРµСЂРµРґР°РЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ.
 	while (true) {
-		recv(Connection, m, sizeof(m), NULL); // Принятие сообщения.
-		std::cout << m << std::endl; //Вывод на экран.
+		recv(Connection, m, sizeof(m), NULL);
+		std::cout << m << std::endl; //Р’С‹РІРѕРґРёС‚ СЃРѕРѕР±С‰РµРЅРёРµ.
 	}
 }
 
 int main(int argc, char* argv[]) {
 	//WSAStartup
-	WSAData wsaData; //Структура.
+	WSAData wsaData; //СЃС‚СЂСѓРєС‚СѓСЂР°.
 	WORD DLLVersion = MAKEWORD(2, 1);
-	if (WSAStartup(DLLVersion, &wsaData) != 0) {
+	if (WSAStartup(DLLVersion, &wsaData) != 0) { // 1-С‹Р№ РїР°СЂР°РјРµС‚СЂ: РІРµСЂСЃРёСЏ Р±РёР±Р»РёРѕС‚РµРєРё, 2-РѕР№ - СЃСЃС‹Р»РєР° РЅР° СЃС‚СЂСѓРєС‚СѓСЂСѓ. РџСЂРѕРІРµСЂРєР° Р·Р°РіСЂСѓР·РєРё Р±РёР±Р»РёРѕС‚РµРєРё.
 		std::cout << "Error" << std::endl;
 		exit(1);
 	}
-	//Адрес сокета.
-	SOCKADDR_IN addr; //Структура.
+	//РРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РґСЂРµСЃРµ СЃРѕРєРµС‚Р°.
+	SOCKADDR_IN addr; //РЎС‚СЂСѓРєС‚СѓСЂР°.
 	int sizeofaddr = sizeof(addr);
 	addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-	addr.sin_port = htons(1111); //Порт для идентификации.
+	addr.sin_port = htons(1111); //РџРѕСЂС‚ РґР»СЏ РёРґРµРЅС‚РёС„РёРєР°С†РёРё.
 	addr.sin_family = AF_INET;
 
-	Connection = socket(AF_INET, SOCK_STREAM, NULL); //Сокет для соединения с сервером.
-	if (connect(Connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) { //Проверка соединения клиента с сервером.
+	Connection = socket(AF_INET, SOCK_STREAM, NULL);
+	if (connect(Connection, (SOCKADDR*)&addr, sizeof(addr)) != 0) { 
 		std::cout << "Error\n";
 		return 1;
 	}
 	std::cout << "Connected\n";
 
-	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientH, NULL, NULL, NULL); //(Многопоточное программирование). 
-			//Одновременно в функции main принимаются новые соединения, в процедуре ClientH ожидаются и отправляются сообщения клиенту.
+	CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ClientH, NULL, NULL, NULL); //(РњРЅРѕРіРѕРїРѕС‚РѕС‡РЅРѕРµ РїСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ)
+	//РћРґРЅРѕРІСЂРµРјРµРЅРЅРѕ РІ С„СѓРЅРєС†РёРё main РїСЂРёРЅРёРјР°СЋС‚СЃСЏ РЅРѕРІС‹Рµ СЃРѕРµРґРёРЅРµРЅРёСЏ, РІ РїСЂРѕС†РµРґСѓСЂРµ ClientH РѕР¶РёРґР°СЋС‚СЃСЏ Рё РѕС‚РїСЂР°РІР»СЏСЋС‚СЃСЏ СЃРѕРѕР±С‰РµРЅРёСЏ РєР»РёРµРЅС‚Р°Рј.
 
-	char m[256]; //Переменная для хранения сообщения.
+	char m[256];
 	while (true) {
-		std::cin.getline(m, sizeof(m)); //Запись сообщения.
-		send(Connection, m, sizeof(m), NULL); //Отправка сообщения.
-		Sleep(10);
+		std::cin.getline(m, sizeof(m)); 
+		send(Connection, m, sizeof(m), NULL); 
 	}
 
 	system("pause");
