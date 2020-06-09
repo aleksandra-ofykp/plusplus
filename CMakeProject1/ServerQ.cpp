@@ -1,4 +1,4 @@
-﻿// CMakeProject1.cpp: определяет точку входа для приложения.
+// CMakeProject1.cpp: определяет точку входа для приложения.
 //
 
 #include "CMakeProject1.h"
