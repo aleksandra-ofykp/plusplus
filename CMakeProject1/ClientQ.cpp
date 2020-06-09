@@ -1,15 +1,15 @@
 //#include "stdio.h"
 //#include "pch.h"
-#pragma comment(lib, "Ws2_32.lib")
-#include <WinSock2.h>
+#pragma comment(lib, "ws2_32.lib")
+#include <winsock2.h>
 #include <iostream>
-#include <WS2tcpip.h>
+#include <ws2tcpip.h>
 #pragma warning(disable: 4996) 
 #include <cstring>
 
 SOCKET Connection;
 
-extern std::string n;
+std::string n;
 void ClientH() { //Функция для принятия сообщение клиентом с сервера.
 	char m[256]; //Переданное сообщение.
 	while (true) {

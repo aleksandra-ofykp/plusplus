@@ -7,3 +7,5 @@ add_executable(Chat ClientQ.cpp)
 add_executable(ClientHC_test ClientQ.cpp ClientHC_test.cpp)
 enable_testing()
 add_test(ClientHC_test ClientHC_test)
+
+target_link_libraries(ServChat ws2_32)

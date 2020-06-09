@@ -6,10 +6,10 @@
 
 //#include "pch.h"
 #include "stdio.h"
-#pragma comment(lib, "Ws2_32.lib")
-#include <WinSock2.h>
+#pragma comment(lib, "ws2_32.lib")
+#include <winsock2.h>
 #include <iostream>
-#include <WS2tcpip.h>
+#include <ws2tcpip.h>
 
 #pragma warning(disable: 4996)
 SOCKET Connections[100]; //Массив сокетов. Для подключения нескольких клиентов.
